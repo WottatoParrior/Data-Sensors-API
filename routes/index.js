@@ -74,31 +74,35 @@ setInterval(() => {
 router.post('/technical', function (req, res, next) {
   countTechnical[req.body.id] = countTechnical[req.body.id] + 1;
 
-  if (countTechnical[req.body.id] > tresholdTechnical[req.body.id])
+  if (countTechnical[req.body.id] > tresholdTechnical[req.body.id]) {
     io.emit('report_received', { body: dbTechnical[req.body.id] });
+    res.send({ status: 'ok' });
+  } else {
+    res.send({ status: 'error' });
+  }
 });
 
 router.post('/lecture', function (req, res, next) {
-  countLecture[req.body.id] = countcountLectureTechnical[req.body.id] + 1;
-
+  countLecture[req.body.id] = countLecture[req.body.id] + 1;
   if (countLecture[req.body.id] > tresholdLecture[req.body.id])
     io.emit('report_received', { body: dbLecture[req.body.id] });
+  res.send('ok');
 });
 
 router.get('/technical-schema', function (req, res, next) {
   res.send({
-    btn: 'Sound is not good.',
-    btn: 'Board is not visible.',
-    btn: 'Screen Sharing is not working.',
-    btn: 'Microphone is muted.',
+    btn1: 'Sound is not good.',
+    btn2: 'Board is not visible.',
+    btn3: 'Screen Sharing is not working.',
+    btn4: 'Microphone is muted.',
   });
 });
 
 router.get('/lecture-schema', function (req, res, next) {
   res.send({
-    btn: 'Gradient Descent is not clear.',
-    btn: 'Too fast.',
-    btn: 'Too slow.',
+    btn1: 'Gradient Descent is not clear.',
+    btn2: 'Too fast.',
+    btn3: 'Too slow.',
   });
 });
 
